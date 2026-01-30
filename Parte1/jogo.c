@@ -45,6 +45,7 @@ int main(){
                 getchar();
             }
         }
+
         else{
             char playerOne[50];
             char playerTwo[50];
@@ -54,8 +55,10 @@ int main(){
                                  {'@', '@', '@', '@', '@', '@', '@'},
                                  {'@', '@', '@', '@', '@', '@', '@'},
                                  {'@', '@', '@', '@', '@', '@', '@'}};
+                            
 
-            printf("Jogador 1: ");
+            printf("\n  --- Jogadores ---\n");
+            printf("\nJogador 1: ");
             fgets(playerOne, 50, stdin);
             playerOne[strcspn(playerOne, "\n")] = '\0';
 
@@ -67,9 +70,33 @@ int main(){
 
             for(int i = 0; i < 6; i++){
                 for(int j = 0; j < 7; j++){
-                    printf(" %c ", ligue4[i][j]);
+                    printf(" %c  ", ligue4[i][j]);
                 }
                 printf("\n\n");
+            }
+
+            for(int i = 1; i < 43; i++){
+                int coluna;
+                
+                if(i % 2 != 0){ //Jogador 1
+                    printf("Rodada de %s\n", playerOne);
+                    printf("Digite a coluna desejada: ");
+                    scanf("%c", &coluna);
+                    getchar();
+
+                    ligue4[linha][coluna] = 'x';
+                    printf("\n");
+                    
+                    for(int i = 0; i < 6; i++){
+                        for(int j = 0; j < 7; j++){
+                            printf(" %c  ", ligue4[i][j]);
+                        }
+                        printf("\n\n");
+                    }
+                }
+
+                else{ //Jogador 2
+                }
             }
 
 
