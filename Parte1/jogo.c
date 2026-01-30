@@ -3,10 +3,10 @@
 #include <locale.h>
 
 int main(){
-
     //Função para reconhecer carcteres acentuados em portugês
     setlocale(LC_ALL, "Portuguese_Brazil"); 
     
+    //Jogar ou encerrar jogo
     char buttonPower;
     
     printf("\n  --- Ligue 4 ---\n\n");
@@ -29,7 +29,7 @@ int main(){
         return 0;
     }
 
-    else{
+    else{ //Modo de jogo
         char selection;
 
         printf("\n  --- Selecione o modo de jogo --- \n\n");
@@ -46,7 +46,7 @@ int main(){
             }
         }
 
-        else{
+        else{ // Criando Jogadores
             char playerOne[50];
             char playerTwo[50];
             char ligue4[6][7] = {{'@', '@', '@', '@', '@', '@', '@'},
