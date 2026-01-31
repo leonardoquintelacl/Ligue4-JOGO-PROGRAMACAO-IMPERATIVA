@@ -30,6 +30,7 @@ int main(){
     }
 
     else{ //Modo de jogo
+    
         char selection;
 
         printf("\n  --- Selecione o modo de jogo --- \n\n");
@@ -77,29 +78,59 @@ int main(){
 
             for(int i = 1; i < 43; i++){
                 int coluna;
+                char jogador[50];
+                char simbolo;
                 
-                if(i % 2 != 0){ //Jogador 1
-                    printf("Rodada de %s\n", playerOne);
-                    printf("Digite a coluna desejada: ");
-                    scanf("%c", &coluna);
-                    getchar();
-
-                    ligue4[linha][coluna] = 'x';
-                    printf("\n");
+                if(i % 2 != 0){ 
+                    strcpy(jogador, playerOne);
+                    simbolo = 'x';
+                }
+                else{
+                    strcpy(jogador, playerTwo);
+                    simbolo = 'o';
+                }
                     
-                    for(int i = 0; i < 6; i++){
-                        for(int j = 0; j < 7; j++){
-                            printf(" %c  ", ligue4[i][j]);
-                        }
-                        printf("\n\n");
+                printf("Rodada de %s (%c)\n", jogador, simbolo);
+                printf("Digite a coluna desejada (1 a 7): ");
+                scanf("%d", &coluna);
+                getchar();
+
+                if((coluna-1) < 0 || (coluna-1) > 6){
+                    while((coluna-1) < 0 || (coluna-1) > 6){
+                        printf("Coluna inexistente, selecione outra coluna: ");
+                        scanf("%d", &coluna);
+                        getchar();
                     }
                 }
 
-                else{ //Jogador 2
+                if(ligue4[0][coluna-1] == 'x' || ligue4[0][coluna-1] == 'o'){
+                    while(ligue4[0][coluna-1] == 'x' || ligue4[0][coluna-1] == 'o'){
+                        printf("Coluna preenchida!! Selecione outra coluna: ");
+                        scanf("%d", &coluna);
+                        getchar();
+                    }
+                }
+                    
+                int linha = 6-1;
+                while(linha >= 0){
+                    if(ligue4[linha][coluna-1] != 'x' && ligue4[linha][coluna-1] != 'o'){
+                        ligue4[linha][coluna-1] = simbolo;
+                        break;
+                    }
+                    else{
+                        linha--;
+                    }
+                }
+
+                printf("\n");
+                    
+                for(int i = 0; i < 6; i++){
+                    for(int j = 0; j < 7; j++){
+                        printf(" %c  ", ligue4[i][j]);
+                    }
+                    printf("\n\n");
                 }
             }
-
-
         }
     }
 }
