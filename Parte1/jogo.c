@@ -15,16 +15,13 @@ int main(){
     scanf("%c", &buttonPower);
     getchar();
 
-    if((buttonPower != '0') && (buttonPower != '1')){
-
-        while((buttonPower != '0') && (buttonPower != '1')){
-            printf("\nCOMANMDO DESCONHECIDO, DIGITE NOVAMENTE: ");
-            scanf("%c", &buttonPower);
-            getchar();
-        }
+    while((buttonPower != '0') && (buttonPower != '1')){
+        printf("COMANMDO DESCONHECIDO, DIGITE NOVAMENTE: ");
+        scanf("%c", &buttonPower);
+        getchar();
     }
 
-    else if(buttonPower == '0'){
+    if(buttonPower == '0'){
         printf("\nEncerrando jogo...");
         return 0;
     }
@@ -76,7 +73,7 @@ int main(){
                 printf("\n\n");
             }
 
-            for(int i = 1; i < 43; i++){
+            for(int i = 1; i < 43; i++){ // Funcionamento da partida
                 int coluna;
                 char jogador[50];
                 char simbolo;
@@ -95,7 +92,7 @@ int main(){
                 scanf("%d", &coluna);
                 getchar();
 
-                if((coluna-1) < 0 || (coluna-1) > 6){
+                if((coluna-1) < 0 || (coluna-1) > 6){ // Coluna - 1 poque a coluna vai de  0 a 6 -> 0 1 2 3 4 5 6 
                     while((coluna-1) < 0 || (coluna-1) > 6){
                         printf("Coluna inexistente, selecione outra coluna: ");
                         scanf("%d", &coluna);
@@ -111,7 +108,7 @@ int main(){
                     }
                 }
                     
-                int linha = 6-1;
+                int linha = 5; // A linha vai de 0 a 5 -> 0 1 2 3 4 5
                 while(linha >= 0){
                     if(ligue4[linha][coluna-1] != 'x' && ligue4[linha][coluna-1] != 'o'){
                         ligue4[linha][coluna-1] = simbolo;
