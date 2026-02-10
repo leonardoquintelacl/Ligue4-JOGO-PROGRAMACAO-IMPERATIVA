@@ -91,3 +91,7 @@ void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
             }
     }
 }
+
+int varificar_vitoria(char jogador[50], char simbolo, char nomeMatriz[6][7]){
+    
+}
