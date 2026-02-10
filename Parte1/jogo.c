@@ -27,7 +27,7 @@ int main(){
     }
 
     else{ //Modo de jogo
-    
+
         char selection;
 
         printf("\n  --- Selecione o modo de jogo --- \n\n");
@@ -38,13 +38,13 @@ int main(){
 
         if(selection != '1'){
             while(selection != '1'){
-                printf("COMANDO DESCONHECIDO, DIGITE NOVAMENTE: ");
-                scanf("%c", &selection);
-                getchar();
+            printf("COMANDO DESCONHECIDO, DIGITE NOVAMENTE: ");
+            scanf("%c", &selection);
+            getchar();
             }
         }
 
-        else{ // Criando Jogadores
+        if(selection == '1'){ // Criando Jogadores
             char playerOne[50];
             char playerTwo[50];
             char ligue4[6][7] = {{'@', '@', '@', '@', '@', '@', '@'},
@@ -53,7 +53,6 @@ int main(){
                                  {'@', '@', '@', '@', '@', '@', '@'},
                                  {'@', '@', '@', '@', '@', '@', '@'},
                                  {'@', '@', '@', '@', '@', '@', '@'}};
-                            
 
             printf("\n  --- Jogadores ---\n");
             printf("\nJogador 1: ");
