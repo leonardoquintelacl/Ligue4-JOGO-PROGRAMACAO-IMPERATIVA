@@ -41,7 +41,7 @@ int main(){
 
             printMatriz(ligue4);
 
-            for(int i = 1; i < 43; i++){ // Funcionamento da partida
+            for(int i = 1; i < 43; i++){
                 char jogador[50];
                 char simbolo;
                 
@@ -54,12 +54,25 @@ int main(){
                     simbolo = 'o';
                 }
                     
-               rodada(jogador, simbolo, ligue4);
+                rodada(jogador, simbolo, ligue4);
 
                 printf("\n");
                     
                 printMatriz(ligue4);
+
+                int vitoria = verificar_coluna(simbolo, ligue4);
+                
+                if(vitoria == 0){
+                    vitoria = verificar_linha(simbolo, ligue4);
+                }
+                else if(vitoria == 1){
+                    printf("FIM DE JOGO\n%s GANHOU!!", jogador);
+                    return 0;
+                }
             }
+
+            printf("FIM DE JOGO\nAMBOS OS JOGADORES EMPATARAM!!");
+            return 0;
         }
     }
 }
