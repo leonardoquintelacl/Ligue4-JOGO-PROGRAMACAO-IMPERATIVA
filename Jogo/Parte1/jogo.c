@@ -5,7 +5,7 @@
 
 int main(){
     //Função para reconhecer carcteres acentuados em portugês
-    setlocale(LC_ALL, "Portuguese_Brazil"); 
+    setlocale(LC_ALL, "pt_BR.UTF-8"); 
 
     char buttonPower = jogar_ou_sair();
 
@@ -60,13 +60,10 @@ int main(){
                     
                 printMatriz(ligue4);
 
-                int vitoria = verificar_coluna(simbolo, ligue4);
-                
-                if(vitoria == 0){
-                    vitoria = verificar_linha(simbolo, ligue4);
-                }
-                else if(vitoria == 1){
-                    printf("FIM DE JOGO\n%s GANHOU!!", jogador);
+                int ganhou = verificar_vitoria(simbolo, ligue4);
+
+                if(ganhou == 1){
+                    printf("O JOGADOR %s É O GRANDE CAMPEÃO DO LIGUE4!!!", jogador);
                     return 0;
                 }
             }

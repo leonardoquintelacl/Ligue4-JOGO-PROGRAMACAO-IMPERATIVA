@@ -94,57 +94,56 @@ void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
 }
 
 int verificar_coluna(char simbolo, char nomeMatriz[6][7]){
-    int aux = 0;
-    int j = 0;
-
-    while(j < 7){
-        if(nomeMatriz[1][j] == simbolo && nomeMatriz[2][j] == simbolo && nomeMatriz[3][j] == simbolo && nomeMatriz[4][j] == simbolo){    
-           aux++;
-            break;
+    
+    for(int j = 0; j < 7; j++){
+        for(int i = 0; i < 4; i++){
+            if(nomeMatriz[i][j] == simbolo && nomeMatriz[i][j] == nomeMatriz[i+1][j] && nomeMatriz[i+1][j] == nomeMatriz[i+2][j] && nomeMatriz[i+2][j] == nomeMatriz[i+3][j]){
+                return 1;
+            }
         }
-        else if(nomeMatriz[2][j] == simbolo && nomeMatriz[3][j] == simbolo && nomeMatriz[4][j] == simbolo && nomeMatriz[5][j] == simbolo){
-            aux++;
-            break;
-        }
-        else if(nomeMatriz[3][j] == simbolo && nomeMatriz[4][j] == simbolo && nomeMatriz[5][j] == simbolo && nomeMatriz[6][j] == simbolo){
-            aux++;
-            break;
-        }
-
-        j++;
     }
 
-    return aux;
+    return 0;
 }
 
 int verificar_linha(char simbolo, char nomeMatriz[6][7]){
-    int aux = 0;
-    int i = 0;
-
-    while(i < 6){
-        if(nomeMatriz[i][1] == simbolo && nomeMatriz[i][2] == simbolo && nomeMatriz[i][3] == simbolo && nomeMatriz[i][4] == simbolo){    
-            aux++;
-            break;
+    
+    for(int i = 0; i < 6; i++){
+        for(int j = 0; j < 4; j++){
+            if(nomeMatriz[i][j] == simbolo && nomeMatriz[i][j] == nomeMatriz[i][j+1] && nomeMatriz[i][j+1] == nomeMatriz[i][j+2] && nomeMatriz[i][j+2] == nomeMatriz[i][j+3]){
+                return 1;
+            }
         }
-        else if(nomeMatriz[i][2] == simbolo && nomeMatriz[i][3] == simbolo && nomeMatriz[i][4] == simbolo && nomeMatriz[i][5] == simbolo){    
-            aux++;
-            break;
-        }
-        else if(nomeMatriz[i][3] == simbolo && nomeMatriz[i][4] == simbolo && nomeMatriz[i][5] == simbolo && nomeMatriz[i][6] == simbolo){    
-            aux++;
-            break;
-        }
-        else if(nomeMatriz[i][4] == simbolo && nomeMatriz[i][5] == simbolo && nomeMatriz[i][6] == simbolo && nomeMatriz[i][7] == simbolo){    
-            aux++;
-            break;
-        }
-
-        i++;
     }
 
-    return aux;
+    return 0;
 }
 
 int verificar_diagonal(char simbolo, char nomeMatriz[6][7]){
-    
+
+    for(int i = 3; i < 6; i++){ // Diagonal Indo
+        for(int j = 0; j < 4; j++){
+            if(nomeMatriz[i][j] == simbolo && nomeMatriz[i][j] == nomeMatriz[i-1][j+1] && nomeMatriz[i-1][j+1] == nomeMatriz[i-2][j+2] && nomeMatriz[i-2][j+2] == nomeMatriz[i-3][j+3]){
+                return 1;
+            }
+        }
+    }
+
+    for(int i = 3; i < 6; i++){ // Diagonal Voltando
+        for(int j = 6; j > 3; j--){
+            if(nomeMatriz[i][j] == simbolo && nomeMatriz[i][j] == nomeMatriz[i-1][j-1] && nomeMatriz[i-1][j-1] == nomeMatriz[i-2][j-2] && nomeMatriz[i-2][j-2] == nomeMatriz[i-3][j-3]){
+                return 1;
+            }
+        }
+    }  
+
+    return 0;
+}
+
+int verificar_vitoria(char simbolo, char nomeMatriz[6][7]){
+    if(verificar_coluna(simbolo, nomeMatriz) == 1 || verificar_linha(simbolo, nomeMatriz) == 1 || verificar_diagonal(simbolo, nomeMatriz) == 1){
+        return 1;
+    }
+
+    return 0;
 }

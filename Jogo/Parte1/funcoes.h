@@ -8,5 +8,7 @@ void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]);
 int verificar_coluna(char simbolo, char nomeMatriz[6][7]);
 int verificar_linha(char simbolo, char nomeMatriz[6][7]);
 int verificar_diagonal(char simbolo, char nomeMatriz[6][7]);
+int verificar_vitoria(char simbolo, char nomeMatriz[6][7]);
+
 
 #endif
