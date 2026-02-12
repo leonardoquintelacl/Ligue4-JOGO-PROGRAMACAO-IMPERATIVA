@@ -2,10 +2,17 @@
 #include "funcoes.h"
 
 void printMatriz(char nomeMatriz[6][7]){
+    int coluna[7] = {1, 2, 3, 4, 5, 6, 7};
+
+    for(int i = 0; i < 7; i++){
+        printf("  %d ", coluna[i]);
+    }
+
+    printf("\n\n");
 
     for(int i = 0; i < 6; i++){
         for(int j = 0; j < 7; j++){
-            printf(" %c ", nomeMatriz[i][j]);
+            printf("  %c ", nomeMatriz[i][j]);
         }
         printf("\n\n");
     }
@@ -91,6 +98,9 @@ void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
             linha--;
         }
     }
+
+     printf("\n");
+     printMatriz(nomeMatriz);
 }
 
 int verificar_coluna(char simbolo, char nomeMatriz[6][7]){

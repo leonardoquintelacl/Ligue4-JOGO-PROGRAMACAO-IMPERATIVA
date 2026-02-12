@@ -1,11 +1,14 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include <locale.h>
 #include "funcoes.h"
 
 int main(){
     //Função para reconhecer carcteres acentuados em portugês
     setlocale(LC_ALL, "pt_BR.UTF-8"); 
+
+    system("cls"); // Limpar o terminal
 
     char buttonPower = jogar_ou_sair();
 
@@ -16,7 +19,11 @@ int main(){
 
     else{ //Modo de jogo
 
+        system("cls");
+
         char selection = modo_de_jogo();
+
+        system("cls");
 
         if(selection == '1'){ // Criando Jogadores
             char playerOne[50];
@@ -37,8 +44,9 @@ int main(){
             fgets(playerTwo, 50, stdin);
             playerTwo[strcspn(playerTwo, "\n")] = '\0';
 
-            printf("\n --- Iniciando Partida --- \n\n");
+            system("cls");
 
+            printf("\n --- Iniciando Partida --- \n\n"); 
             printMatriz(ligue4);
 
             for(int i = 1; i < 43; i++){
@@ -53,23 +61,25 @@ int main(){
                     strcpy(jogador, playerTwo);
                     simbolo = 'o';
                 }
-                    
+               
                 rodada(jogador, simbolo, ligue4);
 
-                printf("\n");
-                    
-                printMatriz(ligue4);
-
-                int ganhou = verificar_vitoria(simbolo, ligue4);
-
-                if(ganhou == 1){
-                    printf("O JOGADOR %s É O GRANDE CAMPEÃO DO LIGUE4!!!", jogador);
+                if(verificar_vitoria(simbolo, ligue4) == 1){
+                    printf("-----------------------------------------------------");
+                    printf("\n|                 FIM DE JOGO!                      |\n");
+                    printf("|  O JOGADOR %s É O GRANDE CAMPEÃO DO LIGUE4!!!  |\n", jogador);
+                    printf("-----------------------------------------------------");
                     return 0;
                 }
             }
 
-            printf("FIM DE JOGO\nAMBOS OS JOGADORES EMPATARAM!!");
+            printf("---------------------------------------------------");
+            printf("\n|                 FIM DE JOGO!                 |\n");
+            printf("|         AMBOS OS JOGADORES EMPATARAM         |\n");
+            printf("---------------------------------------------------");
             return 0;
         }
+
+
     }
 }
