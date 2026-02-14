@@ -1,96 +1,108 @@
 #include <stdio.h>
+#include <string.h>
 #include "funcoes.h"
 
 void printMatriz(char nomeMatriz[6][7]){
     int coluna[7] = {1, 2, 3, 4, 5, 6, 7};
 
     for(int i = 0; i < 7; i++){
-        printf("  %d ", coluna[i]);
+        printf("| %d ", coluna[i]);
     }
+    printf("|");
 
     printf("\n\n");
 
     for(int i = 0; i < 6; i++){
         for(int j = 0; j < 7; j++){
-            printf("  %c ", nomeMatriz[i][j]);
+            printf("| %c ", nomeMatriz[i][j]);
         }
-        printf("\n\n");
+        printf("|");
+        printf("\n");
     }
+    printf("\n");
 }
 
-char jogar_ou_sair(){
-    char aux; 
-    printf("\n  --- Ligue 4 ---\n\n");
-    printf("1. Jogar\n0. Sair\n");
-    printf("\nDigite o número correspondente a sua escolha: ");
-    scanf("%c", &aux);
-    getchar();
+// Escolher modo de jogo
 
-    while((aux != '0') && (aux != '1')){
-        printf("COMANMDO DESCONHECIDO!! Digite uma seleção existente: ");
-        scanf("%c", &aux);
-        getchar();
-    }
+int modo_de_jogo(){
+    char aux[5];
 
-    return aux;
-}
-
-char modo_de_jogo(){
-    char aux;
     printf("\n  --- Selecione o modo de jogo --- \n\n");
     printf("1. HUMANO VS HUMANO\n");
-    printf("\nDigite o número correpondente a sua escolha: ");
-    scanf("%c", &aux);
-    getchar();
+    printf("\nDigite aqui (1): ");
+    fgets(aux, 5, stdin);
+    aux[strcspn(aux, "\n")] = '\0';
 
-    if(aux != '1'){
-        while(aux!= '1'){
-        printf("COMANDO DESCONHECIDO!! Digite um modo existente: ");
+    if(strcmp(aux, "1") != 0){
+        while(strcmp(aux, "1") != 0){
+        printf("COMANDO DESCONHECIDO!!\nDigite novamente: ");
         scanf("%c", &aux);
         getchar();
         }
     }
 
-    return aux;
+    if(strcmp(aux, "1") == 0){
+        return 1;
+    }
 }
 
+//Tipos de rodadas
+
 void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
-    char charColuna;
+    char charColuna[5];
 
     printf("Rodada de %s (%c)\n", jogador, simbolo);
-    printf("Digite a coluna desejada (1 a 7): ");
-    scanf("%c", &charColuna);
-    getchar();
+    printf("Escolha uma coluna(1 a 7): ");
+    fgets(charColuna, 5, stdin);
+    charColuna[strcspn(charColuna, "\n")] = '\0';
 
-    while(charColuna != '1' && charColuna != '2' && charColuna != '3' && charColuna != '4' && 
-          charColuna != '5' && charColuna != '6' && charColuna != '7'){
-            printf("COMANDO INVÁLIDO!! Digite uma coluna existente: ");
-            scanf("%c", &charColuna);
-            getchar();
+    //Verifica se a coluna digitada existe
+    while((strcmp(charColuna, "1") != 0) && (strcmp(charColuna, "2") != 0) && (strcmp(charColuna, "3") != 0) && (strcmp(charColuna, "4") != 0) && 
+          (strcmp(charColuna, "5") != 0) && (strcmp(charColuna, "6") != 0) && (strcmp(charColuna, "7") != 0)){
+            printf("Coluna inexistente, selecione outra coluna: ");
+            fgets(charColuna, 5, stdin);
+            charColuna[strcspn(charColuna, "\n")] = '\0';
           }
 
-    //Na tabela ASCII a subtração de um char 'algarismo' pelo char '0' resulta em um número inteiro (int) igual a representação do algorismo
-    int coluna = charColuna - '0'; 
+    int coluna = 0;
 
-    if((coluna-1) < 0 || (coluna-1) > 6){ // Coluna - 1 poque a coluna vai de  0 a 6 -> 0 1 2 3 4 5 6 
-        while((coluna-1) < 0 || (coluna-1) > 6){
-            printf("Coluna inexistente, selecione outra coluna: ");
-            scanf("%d", &coluna);
-            getchar();
-        }
+    if(strcmp(charColuna, "1") == 0){
+        coluna = 1;
+    }
+    else if(strcmp(charColuna, "2") == 0){
+        coluna = 2;
+    }
+    else if(strcmp(charColuna, "3") == 0){
+        coluna = 3;
+    }
+    else if(strcmp(charColuna, "4") == 0){
+        coluna = 4;
+    }
+    else if(strcmp(charColuna, "5") == 0){
+        coluna = 5;
+    }
+    else if(strcmp(charColuna, "6") == 0){
+        coluna = 6;
+    }
+    else if(strcmp(charColuna, "7") == 0){
+        coluna = 7;
     }
 
-    if(nomeMatriz[0][coluna-1] == 'x' || nomeMatriz[0][coluna-1] == 'o'){
-        while(nomeMatriz[0][coluna-1] == 'x' || nomeMatriz[0][coluna-1] == 'o'){
+    //Verifica se a coluna já está totalmente preenchida
+    //(coluna - 1) poque a coluna vai de  0 a 6 -> 0 1 2 3 4 5 6 
+    if(nomeMatriz[0][coluna-1] != '*'){
+        while(nomeMatriz[0][coluna-1] != '*'){
             printf("Coluna preenchida!! Selecione outra coluna: ");
             scanf("%d", &coluna);
             getchar();
         }
     }
-                    
-    int linha = 5; // A linha vai de 0 a 5 -> 0 1 2 3 4 5
+     
+    //Analisa qual posição está livre para alocar a jogada do jogador
+    // A linha vai de 0 a 5 -> 0 1 2 3 4 5 -> começa de baixo para cima
+    int linha = 5; 
     while(linha >= 0){
-        if(nomeMatriz[linha][coluna-1] != 'x' && nomeMatriz[linha][coluna-1] != 'o'){
+        if(nomeMatriz[linha][coluna-1] == '*'){
             nomeMatriz[linha][coluna-1] = simbolo;
             break;
         }
@@ -102,6 +114,8 @@ void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
      printf("\n");
      printMatriz(nomeMatriz);
 }
+
+// Funções para vitória
 
 int verificar_coluna(char simbolo, char nomeMatriz[6][7]){
     
@@ -131,7 +145,8 @@ int verificar_linha(char simbolo, char nomeMatriz[6][7]){
 
 int verificar_diagonal(char simbolo, char nomeMatriz[6][7]){
 
-    for(int i = 3; i < 6; i++){ // Diagonal Indo
+    // Diagonal Indo
+    for(int i = 3; i < 6; i++){ 
         for(int j = 0; j < 4; j++){
             if(nomeMatriz[i][j] == simbolo && nomeMatriz[i][j] == nomeMatriz[i-1][j+1] && nomeMatriz[i-1][j+1] == nomeMatriz[i-2][j+2] && nomeMatriz[i-2][j+2] == nomeMatriz[i-3][j+3]){
                 return 1;
@@ -139,7 +154,8 @@ int verificar_diagonal(char simbolo, char nomeMatriz[6][7]){
         }
     }
 
-    for(int i = 3; i < 6; i++){ // Diagonal Voltando
+    // Diagonal Voltando
+    for(int i = 3; i < 6; i++){
         for(int j = 6; j > 3; j--){
             if(nomeMatriz[i][j] == simbolo && nomeMatriz[i][j] == nomeMatriz[i-1][j-1] && nomeMatriz[i-1][j-1] == nomeMatriz[i-2][j-2] && nomeMatriz[i-2][j-2] == nomeMatriz[i-3][j-3]){
                 return 1;

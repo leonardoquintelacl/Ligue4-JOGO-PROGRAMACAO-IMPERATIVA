@@ -1,39 +1,44 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <locale.h>
 #include "funcoes.h"
 
 int main(){
-    //Função para reconhecer carcteres acentuados em portugês
-    setlocale(LC_ALL, "pt_BR.UTF-8"); 
+    char buttonPower[5];
+    
+    printf("\n  --- Ligue 4 ---\n\n");
+    printf("1. Jogar\n0. Sair\n");
+    printf("\nDigite aqui (1 ou 0): ");
+    fgets(buttonPower, 5, stdin);
+    buttonPower[strcspn(buttonPower, "\n")] = '\0';
 
-    system("cls"); // Limpar o terminal
+    while((strcmp(buttonPower, "0") != 0) && (strcmp(buttonPower, "1") != 0)){
+        printf("COMANMDO DESCONHECIDO!! Digite novamente: ");
+        fgets(buttonPower, 5, stdin);
+        buttonPower[strcspn(buttonPower, "\n")] = '\0';
+    }
 
-    char buttonPower = jogar_ou_sair();
-
-    if(buttonPower == '0'){
+    if(strcmp(buttonPower, "0") == 0){
         printf("\nEncerrando jogo...");
         return 0;
     }
 
-    else{ //Modo de jogo
+    else{ 
+        system("cls");
+
+        int selection = modo_de_jogo();
 
         system("cls");
 
-        char selection = modo_de_jogo();
-
-        system("cls");
-
-        if(selection == '1'){ // Criando Jogadores
+        if(selection == 1){
             char playerOne[50];
             char playerTwo[50];
-            char ligue4[6][7] = {{'@', '@', '@', '@', '@', '@', '@'},
-                                 {'@', '@', '@', '@', '@', '@', '@'},
-                                 {'@', '@', '@', '@', '@', '@', '@'},
-                                 {'@', '@', '@', '@', '@', '@', '@'},
-                                 {'@', '@', '@', '@', '@', '@', '@'},
-                                 {'@', '@', '@', '@', '@', '@', '@'}};
+            char ligue4[6][7] = {{'*', '*', '*', '*', '*', '*', '*'},
+                                 {'*', '*', '*', '*', '*', '*', '*'},
+                                 {'*', '*', '*', '*', '*', '*', '*'},
+                                 {'*', '*', '*', '*', '*', '*', '*'},
+                                 {'*', '*', '*', '*', '*', '*', '*'},
+                                 {'*', '*', '*', '*', '*', '*', '*'}};
 
             printf("\n  --- Jogadores ---\n");
             printf("\nJogador 1: ");
@@ -55,11 +60,11 @@ int main(){
                 
                 if(i % 2 != 0){ 
                     strcpy(jogador, playerOne);
-                    simbolo = 'x';
+                    simbolo = 'X';
                 }
                 else{
                     strcpy(jogador, playerTwo);
-                    simbolo = 'o';
+                    simbolo = 'O';
                 }
                
                 rodada(jogador, simbolo, ligue4);
@@ -67,7 +72,7 @@ int main(){
                 if(verificar_vitoria(simbolo, ligue4) == 1){
                     printf("-----------------------------------------------------");
                     printf("\n|                 FIM DE JOGO!                      |\n");
-                    printf("|  O JOGADOR %s É O GRANDE CAMPEÃO DO LIGUE4!!!  |\n", jogador);
+                    printf("|  O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!   |\n", jogador);
                     printf("-----------------------------------------------------");
                     return 0;
                 }
