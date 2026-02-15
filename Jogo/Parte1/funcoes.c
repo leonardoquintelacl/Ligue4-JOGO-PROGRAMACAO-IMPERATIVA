@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "funcoes.h"
 
 void printMatriz(char nomeMatriz[6][7]){
@@ -10,11 +11,19 @@ void printMatriz(char nomeMatriz[6][7]){
     }
     printf("|");
 
-    printf("\n\n");
+    printf("\n");
 
     for(int i = 0; i < 6; i++){
         for(int j = 0; j < 7; j++){
-            printf("| %c ", nomeMatriz[i][j]);
+            if(nomeMatriz[i][j] == 'X'){
+                printf("|\033[0;33m %c \x1b[0m", nomeMatriz[i][j]);
+            }
+            else if(nomeMatriz[i][j] == 'O'){
+                printf("|\033[0;31m %c \x1b[0m", nomeMatriz[i][j]);
+            }
+            else{
+                printf("| %c ", nomeMatriz[i][j]);
+            }
         }
         printf("|");
         printf("\n");
@@ -25,12 +34,12 @@ void printMatriz(char nomeMatriz[6][7]){
 // Escolher modo de jogo
 
 int modo_de_jogo(){
-    char aux[5];
+    char aux[50];
 
     printf("\n  --- Selecione o modo de jogo --- \n\n");
     printf("1. HUMANO VS HUMANO\n");
     printf("\nDigite aqui (1): ");
-    fgets(aux, 5, stdin);
+    fgets(aux, 50, stdin);
     aux[strcspn(aux, "\n")] = '\0';
 
     if(strcmp(aux, "1") != 0){
@@ -49,18 +58,23 @@ int modo_de_jogo(){
 //Tipos de rodadas
 
 void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
-    char charColuna[5];
-
-    printf("Rodada de %s (%c)\n", jogador, simbolo);
+    char charColuna[50];
+    
+    if(simbolo == 'X'){
+        printf("Rodada de %s (\033[0;33m%c\x1b[0m)\n", jogador, simbolo);
+    }
+    else{
+        printf("Rodada de %s (\033[0;31m%c\x1b[0m)\n", jogador, simbolo);
+    }
     printf("Escolha uma coluna(1 a 7): ");
-    fgets(charColuna, 5, stdin);
+    fgets(charColuna, 50, stdin);
     charColuna[strcspn(charColuna, "\n")] = '\0';
 
     //Verifica se a coluna digitada existe
     while((strcmp(charColuna, "1") != 0) && (strcmp(charColuna, "2") != 0) && (strcmp(charColuna, "3") != 0) && (strcmp(charColuna, "4") != 0) && 
           (strcmp(charColuna, "5") != 0) && (strcmp(charColuna, "6") != 0) && (strcmp(charColuna, "7") != 0)){
             printf("Coluna inexistente, selecione outra coluna: ");
-            fgets(charColuna, 5, stdin);
+            fgets(charColuna, 50, stdin);
             charColuna[strcspn(charColuna, "\n")] = '\0';
           }
 
@@ -111,8 +125,10 @@ void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
         }
     }
 
-     printf("\n");
-     printMatriz(nomeMatriz);
+    system("cls");
+    printf("\n  -------- Ligue 4 --------\n");
+    printf("\n");
+    printMatriz(nomeMatriz);
 }
 
 // Funções para vitória

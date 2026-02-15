@@ -4,17 +4,18 @@
 #include "funcoes.h"
 
 int main(){
-    char buttonPower[5];
+    char buttonPower[50];
+    system("cls");
     
     printf("\n  --- Ligue 4 ---\n\n");
     printf("1. Jogar\n0. Sair\n");
     printf("\nDigite aqui (1 ou 0): ");
-    fgets(buttonPower, 5, stdin);
+    fgets(buttonPower, 50, stdin);
     buttonPower[strcspn(buttonPower, "\n")] = '\0';
 
     while((strcmp(buttonPower, "0") != 0) && (strcmp(buttonPower, "1") != 0)){
         printf("COMANMDO DESCONHECIDO!! Digite novamente: ");
-        fgets(buttonPower, 5, stdin);
+        fgets(buttonPower, 50, stdin);
         buttonPower[strcspn(buttonPower, "\n")] = '\0';
     }
 
