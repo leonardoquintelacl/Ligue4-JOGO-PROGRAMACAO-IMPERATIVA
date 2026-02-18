@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "funcoes.h"
 
 int main(){
@@ -89,30 +90,40 @@ int main(){
 
             system("cls");
 
-            printf("\n  --- Nomeando Jogadores ---\n");
+            printf("\n  --- Nomeando Jogador ---\n");
     
             printf("\nDigite um nome para o Jogador: ");
             fgets(playerOne, 50, stdin);
             playerOne[strcspn(playerOne, "\n")] = '\0';
             
-            printf("Digite um nome para o COMPUTADOR: ");
-            fgets(playerComp, 50, stdin);
-            playerComp[strcspn(playerComp, "\n")] = '\0';
+            system("cls");
 
-            if(selection == 1){
-                printf("Teste nivel 1");
-                return 0;
+            printf("\n --- Iniciando Partida --- \n\n"); 
+            printMatriz(ligue4);
+
+            for(int i = 1; i < 43; i++){
+                char jogador[50];
+                char simbolo;
+                
+                if(i % 2 != 0){ 
+                    strcpy(jogador, playerOne);
+                    simbolo = 'X';
+                }
+                else{
+                    strcpy(jogador, playerComp);
+                    simbolo = 'O';
+                }
+               
+                rodada_humano_computador(jogador, simbolo, ligue4, selection);
+
+                if(verificar_vitoria(simbolo, ligue4) == 1){
+                    printVitoria(jogador);
+                    return 0;
+                }
             }
 
-            else if(selection == 2){
-                printf("Teste nivel 2");
-                return 0;
-            }
-
-            else if(selection == 3){
-                printf("Teste nivel 3");
-                return 0;
-            }
+            printEmpate();
+            return 0;
         }
 
         else if(selection == 3){

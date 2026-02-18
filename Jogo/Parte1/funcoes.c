@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 #include "funcoes.h"
 
 void printMatriz(char nomeMatriz[6][7]){
@@ -33,15 +34,15 @@ void printMatriz(char nomeMatriz[6][7]){
 
 void printVitoria(char jogador[50]){
     printf("-----------------------------------------------------");
-    printf("\n|                  FIM DE JOGO!                     |\n");
-    printf("|  O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!   |\n", jogador);
+    printf("\n                  FIM DE JOGO!                     \n");
+    printf("   O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!   \n", jogador);
     printf("-----------------------------------------------------");
 }
 
 void printEmpate(){
     printf("---------------------------------------------------");
-    printf("\n|                 FIM DE JOGO!                 |\n");
-    printf("|         AMBOS OS JOGADORES EMPATARAM         |\n");
+    printf("\n                  FIM DE JOGO!                 \n");
+    printf("          AMBOS OS JOGADORES EMPATARAM         \n");
     printf("---------------------------------------------------");
 }
 
@@ -177,6 +178,24 @@ void alocarJogada(int coluna, int simbolo, char nomeMatriz[6][7]){
     }
 }
 
+//Funções para o Computador
+
+int comp_nivel_facil(char nomeMatriz[6][7]){
+    int numComp;
+    srand(time(NULL));
+    numComp = 1 + rand() % 6;
+
+    if(nomeMatriz[0][numComp] != '*'){
+        while(nomeMatriz[0][numComp] != '*'){
+            srand(time(NULL));
+            numComp = 1 + rand() % 6;
+        }
+    }
+
+    return numComp;
+}
+
+
 //Tipos de rodadas
 
 void rodada_humano(char jogador[50], char simbolo, char nomeMatriz[6][7]){
@@ -200,6 +219,37 @@ void rodada_humano(char jogador[50], char simbolo, char nomeMatriz[6][7]){
     printf("\n  -------- Ligue 4 --------\n");
     printf("\n");
     printMatriz(nomeMatriz);
+}
+
+void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6][7], int nivel){
+    char charColuna[50];
+    int coluna = 0;
+
+    if(simbolo == 'X'){
+        printf("Sua rodada (\033[0;33m%c\x1b[0m)\n", simbolo);
+
+        printf("Escolha uma coluna(1 a 7): ");
+        fgets(charColuna, 50, stdin);
+        charColuna[strcspn(charColuna, "\n")] = '\0';
+        coluna = verificar_coluna_existencia(charColuna);
+    }
+    else{
+        if(nivel == 1){
+            coluna = comp_nivel_facil(nomeMatriz);
+        }
+    }
+
+    int auxColuna = verificar_coluna_cheia(coluna, nomeMatriz);
+    alocarJogada(auxColuna, simbolo, nomeMatriz);
+
+    system("cls");
+    printf("\n  -------- Ligue 4 --------\n");
+    printf("\n");
+    printMatriz(nomeMatriz);
+
+    if(simbolo != 'X'){
+        printf("%s selecionou a coluna: %d\n", jogador, coluna);
+    }
 }
 
 // Funções para vitória
@@ -243,7 +293,7 @@ int verificar_diagonal(char simbolo, char nomeMatriz[6][7]){
 
     // Diagonal Voltando
     for(int i = 3; i < 6; i++){
-        for(int j = 6; j > 3; j--){
+        for(int j = 6; j > 2; j--){
             if(nomeMatriz[i][j] == simbolo && nomeMatriz[i][j] == nomeMatriz[i-1][j-1] && nomeMatriz[i-1][j-1] == nomeMatriz[i-2][j-2] && nomeMatriz[i-2][j-2] == nomeMatriz[i-3][j-3]){
                 return 1;
             }
