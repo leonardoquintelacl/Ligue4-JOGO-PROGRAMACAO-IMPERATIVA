@@ -195,7 +195,7 @@ int comp_nivel_facil(char nomeMatriz[6][7]){
     return numComp;
 }
 
-int ia_medio(int tabuleiro[6][7], int pecaPlayer) {
+int comp_nivel_medio(int tabuleiro[6][7], int pecaPlayer) {
     for (int col = 0; col < 7; col++) {
         if (coluna_valida(tabuleiro, col)) {
             simular_jogada(tabuleiro, col, pecaPlayer); 
