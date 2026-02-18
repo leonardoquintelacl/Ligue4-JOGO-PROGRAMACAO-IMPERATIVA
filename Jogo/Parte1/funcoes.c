@@ -37,7 +37,7 @@ int modo_de_jogo(){
     char aux[50];
 
     printf("\n  --- Selecione o modo de jogo --- \n\n");
-    printf("1. HUMANO VS HUMANO\n");
+    printf("-> HUMANO VS HUMANO = 1\n");
     printf("\nDigite aqui (1): ");
     fgets(aux, 50, stdin);
     aux[strcspn(aux, "\n")] = '\0';
@@ -45,8 +45,8 @@ int modo_de_jogo(){
     if(strcmp(aux, "1") != 0){
         while(strcmp(aux, "1") != 0){
         printf("COMANDO DESCONHECIDO!!\nDigite novamente: ");
-        scanf("%c", &aux);
-        getchar();
+        fgets(aux, 50, stdin);
+        aux[strcspn(aux, "\n")] = '\0';
         }
     }
 

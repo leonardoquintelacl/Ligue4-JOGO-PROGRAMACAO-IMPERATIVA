@@ -8,7 +8,7 @@ int main(){
     system("cls");
     
     printf("\n  --- Ligue 4 ---\n\n");
-    printf("1. Jogar\n0. Sair\n");
+    printf("-> Jogar = 1\n-> Sair = 0\n");
     printf("\nDigite aqui (1 ou 0): ");
     fgets(buttonPower, 50, stdin);
     buttonPower[strcspn(buttonPower, "\n")] = '\0';
@@ -72,7 +72,7 @@ int main(){
 
                 if(verificar_vitoria(simbolo, ligue4) == 1){
                     printf("-----------------------------------------------------");
-                    printf("\n|                 FIM DE JOGO!                      |\n");
+                    printf("\n|                  FIM DE JOGO!                     |\n");
                     printf("|  O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!   |\n", jogador);
                     printf("-----------------------------------------------------");
                     return 0;
