@@ -178,7 +178,7 @@ void alocarJogada(int coluna, int simbolo, char nomeMatriz[6][7]){
     }
 }
 
-//Funções para o Computador
+//Funções Nível do Computador
 
 int comp_nivel_facil(char nomeMatriz[6][7]){
     int numComp;
@@ -195,9 +195,54 @@ int comp_nivel_facil(char nomeMatriz[6][7]){
     return numComp;
 }
 
+int ia_medio(int tabuleiro[6][7], int pecaPlayer) {
+    for (int col = 0; col < 7; col++) {
+        if (coluna_valida(tabuleiro, col)) {
+            simular_jogada(tabuleiro, col, pecaPlayer); 
+            
+            if (verificar_vitoria(tabuleiro, pecaPlayer)) {
+                limpar_simulacao(tabuleiro, col);
+                return col; 
+            }
+            limpar_simulacao(tabuleiro, col); 
+        }
+    }
 
-//Tipos de rodadas
+    int col_aleatoria;
+    do {
+        col_aleatoria = rand() % 7; // Sorteia de 0 a 6
+    } while (!coluna_valida(tabuleiro, col_aleatoria)); // Repete se a coluna estiver cheia
 
+    return col_aleatoria;
+}
+
+//Funções Auxiliares para Médio/Difícil
+
+int coluna_valida(int tabuleiro[6][7], int col) {
+    return tabuleiro[0][col] == 0; 
+}
+
+// Testa a posiçaõ da peça de baixo para cima
+void simular_jogada(int tabuleiro[6][7], int col, int peca) {
+    for (int i = 5; i >= 0; i--) {
+        if (tabuleiro[i][col] == 0) {
+            tabuleiro[i][col] = peca;
+            break;
+        }
+    }
+}
+
+// "Apaga" a peça que acabou de ser colocada na simulação
+void limpar_simulacao(int tabuleiro[6][7], int col) {
+    for (int i = 0; i < 6; i++) {
+        if (tabuleiro[i][col] != 0) {
+            tabuleiro[i][col] = 0;
+            break;
+        }
+    }
+}
+ 
+//Funções Modos de Jogo
 void rodada_humano(char jogador[50], char simbolo, char nomeMatriz[6][7]){
     char charColuna[50];
     
