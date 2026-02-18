@@ -15,7 +15,7 @@ int main(){
     buttonPower[strcspn(buttonPower, "\n")] = '\0';
 
     while((strcmp(buttonPower, "0") != 0) && (strcmp(buttonPower, "1") != 0)){
-        printf("COMANMDO DESCONHECIDO!! Digite novamente: ");
+        printf("COMANMDO DESCONHECIDO!!\nDigite novamente: ");
         fgets(buttonPower, 50, stdin);
         buttonPower[strcspn(buttonPower, "\n")] = '\0';
     }
@@ -130,7 +130,7 @@ int main(){
             char playerComp1[50];
             char playerComp2[50];
 
-            printf("\n  --- Nomeando Jogadores ---\n");
+            printf("\n  --- Nomeando Computadores ---\n");
 
             printf("\nDigite um nome para o COMPUTADOR 1: ");
             fgets(playerComp1, 50, stdin);
