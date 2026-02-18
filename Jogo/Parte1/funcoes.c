@@ -31,6 +31,20 @@ void printMatriz(char nomeMatriz[6][7]){
     printf("\n");
 }
 
+void printVitoria(char jogador[50]){
+    printf("-----------------------------------------------------");
+    printf("\n|                  FIM DE JOGO!                     |\n");
+    printf("|  O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!   |\n", jogador);
+    printf("-----------------------------------------------------");
+}
+
+void printEmpate(){
+    printf("---------------------------------------------------");
+    printf("\n|                 FIM DE JOGO!                 |\n");
+    printf("|         AMBOS OS JOGADORES EMPATARAM         |\n");
+    printf("---------------------------------------------------");
+}
+
 // Escolher modo de jogo
 
 int modo_de_jogo(){
@@ -38,12 +52,14 @@ int modo_de_jogo(){
 
     printf("\n  --- Selecione o modo de jogo --- \n\n");
     printf("-> HUMANO VS HUMANO = 1\n");
-    printf("\nDigite aqui (1): ");
+    printf("-> HUMANO VS COMPUTADOR = 2\n");
+    printf("-> COMPUTADOR VS COMPUTADOR = 3\n");
+    printf("\nDigite aqui (1 ou 2 ou 3): ");
     fgets(aux, 50, stdin);
     aux[strcspn(aux, "\n")] = '\0';
 
-    if(strcmp(aux, "1") != 0){
-        while(strcmp(aux, "1") != 0){
+    if((strcmp(aux, "1") != 0) && (strcmp(aux, "2") != 0) && (strcmp(aux, "3") != 0)){
+        while((strcmp(aux, "1") != 0) && (strcmp(aux, "2") != 0) && (strcmp(aux, "3") != 0)){
         printf("COMANDO DESCONHECIDO!!\nDigite novamente: ");
         fgets(aux, 50, stdin);
         aux[strcspn(aux, "\n")] = '\0';
@@ -52,6 +68,42 @@ int modo_de_jogo(){
 
     if(strcmp(aux, "1") == 0){
         return 1;
+    }
+    else if(strcmp(aux, "2") == 0){
+        return 2;
+    }
+    if(strcmp(aux, "3") == 0){
+        return 3;
+    }
+}
+
+int modo_nivel_comp(){
+    char aux[50];
+
+    printf("\n  --- Selecione o nivel do Computador --- \n\n");
+    printf("-> Facil = 1\n");
+    printf("-> Medio = 2\n");
+    printf("-> Dificil = 3\n");
+    printf("\nDigite aqui (1 ou 2 ou 3): ");
+    fgets(aux, 50, stdin);
+    aux[strcspn(aux, "\n")] = '\0';
+
+    if((strcmp(aux, "1") != 0) && (strcmp(aux, "2") != 0) && (strcmp(aux, "3") != 0)){
+        while((strcmp(aux, "1") != 0) && (strcmp(aux, "2") != 0) && (strcmp(aux, "3") != 0)){
+        printf("COMANDO DESCONHECIDO!!\nDigite novamente: ");
+        fgets(aux, 50, stdin);
+        aux[strcspn(aux, "\n")] = '\0';
+        }
+    }
+
+    if(strcmp(aux, "1") == 0){
+        return 1;
+    }
+    else if(strcmp(aux, "2") == 0){
+        return 2;
+    }
+    if(strcmp(aux, "3") == 0){
+        return 3;
     }
 }
 

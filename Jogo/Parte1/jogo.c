@@ -27,21 +27,23 @@ int main(){
     else{ 
         system("cls");
 
+        char playerOne[50];
+        char ligue4[6][7] = {{'*', '*', '*', '*', '*', '*', '*'},
+                             {'*', '*', '*', '*', '*', '*', '*'},
+                             {'*', '*', '*', '*', '*', '*', '*'},
+                             {'*', '*', '*', '*', '*', '*', '*'},
+                             {'*', '*', '*', '*', '*', '*', '*'},
+                             {'*', '*', '*', '*', '*', '*', '*'}};
+
         int selection = modo_de_jogo();
 
         system("cls");
 
         if(selection == 1){
-            char playerOne[50];
-            char playerTwo[50];
-            char ligue4[6][7] = {{'*', '*', '*', '*', '*', '*', '*'},
-                                 {'*', '*', '*', '*', '*', '*', '*'},
-                                 {'*', '*', '*', '*', '*', '*', '*'},
-                                 {'*', '*', '*', '*', '*', '*', '*'},
-                                 {'*', '*', '*', '*', '*', '*', '*'},
-                                 {'*', '*', '*', '*', '*', '*', '*'}};
 
-            printf("\n  --- Jogadores ---\n");
+            char playerTwo[50];
+            
+            printf("\n  --- Nomeando Jogadores ---\n");
             printf("\nJogador 1: ");
             fgets(playerOne, 50, stdin);
             playerOne[strcspn(playerOne, "\n")] = '\0';
@@ -71,21 +73,66 @@ int main(){
                 rodada(jogador, simbolo, ligue4);
 
                 if(verificar_vitoria(simbolo, ligue4) == 1){
-                    printf("-----------------------------------------------------");
-                    printf("\n|                  FIM DE JOGO!                     |\n");
-                    printf("|  O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!   |\n", jogador);
-                    printf("-----------------------------------------------------");
+                    printVitoria(jogador);
                     return 0;
                 }
             }
 
-            printf("---------------------------------------------------");
-            printf("\n|                 FIM DE JOGO!                 |\n");
-            printf("|         AMBOS OS JOGADORES EMPATARAM         |\n");
-            printf("---------------------------------------------------");
+            printEmpate();
             return 0;
         }
 
+        else if(selection == 2){
+            system("cls");
 
+            char playerComp[50] = {"COMPUTADOR"};
+
+            selection = modo_nivel_comp();
+
+            system("cls");
+
+            printf("\n  --- Nomeando Jogadores ---\n");
+    
+            printf("\nDigite um nome para o Jogador: ");
+            fgets(playerOne, 50, stdin);
+            playerOne[strcspn(playerOne, "\n")] = '\0';
+            
+            printf("Digite um nome para o COMPUTADOR: ");
+            fgets(playerComp, 50, stdin);
+            playerComp[strcspn(playerComp, "\n")] = '\0';
+
+            if(selection == 1){
+                printf("Teste nivel 1");
+                return 0;
+            }
+
+            else if(selection == 2){
+                printf("Teste nivel 2");
+                return 0;
+            }
+
+            else if(selection == 3){
+                printf("Teste nivel 3");
+                return 0;
+            }
+        }
+
+        else if(selection == 3){
+            char playerComp1[50];
+            char playerComp2[50];
+
+            printf("\n  --- Nomeando Jogadores ---\n");
+
+            printf("\nDigite um nome para o COMPUTADOR 1: ");
+            fgets(playerComp1, 50, stdin);
+            playerComp1[strcspn(playerComp1, "\n")] = '\0';
+
+            printf("Digite um nome para o COMPUTADOR 2: ");
+            fgets(playerComp2, 50, stdin);
+            playerComp2[strcspn(playerComp2, "\n")] = '\0';
+
+            printf("Teste modo 3");
+            return 0;
+        }
     }
 }
