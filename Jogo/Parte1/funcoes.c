@@ -45,12 +45,12 @@ void printEmpate(){
     printf("---------------------------------------------------");
 }
 
-// Escolher modo de jogo
+// Escolher modos
 
 int modo_de_jogo(){
     char aux[50];
 
-    printf("\n  --- Selecione o modo de jogo --- \n\n");
+    printf("\n  --- Selecione um modo de jogo --- \n\n");
     printf("-> HUMANO VS HUMANO = 1\n");
     printf("-> HUMANO VS COMPUTADOR = 2\n");
     printf("-> COMPUTADOR VS COMPUTADOR = 3\n");

@@ -44,11 +44,11 @@ int main(){
             char playerTwo[50];
             
             printf("\n  --- Nomeando Jogadores ---\n");
-            printf("\nJogador 1: ");
+            printf("\nDigite um nome para o Jogador 1: ");
             fgets(playerOne, 50, stdin);
             playerOne[strcspn(playerOne, "\n")] = '\0';
 
-            printf("Jogador 2: ");
+            printf("Digite um nome para o Jogador 2: ");
             fgets(playerTwo, 50, stdin);
             playerTwo[strcspn(playerTwo, "\n")] = '\0';
 
@@ -83,8 +83,6 @@ int main(){
         }
 
         else if(selection == 2){
-            system("cls");
-
             char playerComp[50] = {"COMPUTADOR"};
 
             selection = modo_nivel_comp();
