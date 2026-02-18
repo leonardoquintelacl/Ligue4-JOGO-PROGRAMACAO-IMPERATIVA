@@ -70,7 +70,7 @@ int main(){
                     simbolo = 'O';
                 }
                
-                rodada(jogador, simbolo, ligue4);
+                rodada_humano(jogador, simbolo, ligue4);
 
                 if(verificar_vitoria(simbolo, ligue4) == 1){
                     printVitoria(jogador);

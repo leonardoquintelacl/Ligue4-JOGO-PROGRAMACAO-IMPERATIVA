@@ -107,25 +107,12 @@ int modo_nivel_comp(){
     }
 }
 
-//Tipos de rodadas
+//Funções para Colunas
 
-void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
-    char charColuna[50];
-    
-    if(simbolo == 'X'){
-        printf("Rodada de %s (\033[0;33m%c\x1b[0m)\n", jogador, simbolo);
-    }
-    else{
-        printf("Rodada de %s (\033[0;31m%c\x1b[0m)\n", jogador, simbolo);
-    }
-    printf("Escolha uma coluna(1 a 7): ");
-    fgets(charColuna, 50, stdin);
-    charColuna[strcspn(charColuna, "\n")] = '\0';
-
-    //Verifica se a coluna digitada existe
-    while((strcmp(charColuna, "1") != 0) && (strcmp(charColuna, "2") != 0) && (strcmp(charColuna, "3") != 0) && (strcmp(charColuna, "4") != 0) && 
+int verificar_coluna_existencia(char charColuna[50]){
+     while((strcmp(charColuna, "1") != 0) && (strcmp(charColuna, "2") != 0) && (strcmp(charColuna, "3") != 0) && (strcmp(charColuna, "4") != 0) && 
           (strcmp(charColuna, "5") != 0) && (strcmp(charColuna, "6") != 0) && (strcmp(charColuna, "7") != 0)){
-            printf("Coluna inexistente, selecione outra coluna: ");
+            printf("Coluna inexistente!\nSelecione outra coluna: ");
             fgets(charColuna, 50, stdin);
             charColuna[strcspn(charColuna, "\n")] = '\0';
           }
@@ -133,37 +120,49 @@ void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
     int coluna = 0;
 
     if(strcmp(charColuna, "1") == 0){
-        coluna = 1;
+        return coluna = 1;
     }
     else if(strcmp(charColuna, "2") == 0){
-        coluna = 2;
+        return coluna = 2;
     }
     else if(strcmp(charColuna, "3") == 0){
-        coluna = 3;
+        return coluna = 3;
     }
     else if(strcmp(charColuna, "4") == 0){
-        coluna = 4;
+        return coluna = 4;
     }
     else if(strcmp(charColuna, "5") == 0){
-        coluna = 5;
+        return coluna = 5;
     }
     else if(strcmp(charColuna, "6") == 0){
-        coluna = 6;
+        return coluna = 6;
     }
     else if(strcmp(charColuna, "7") == 0){
-        coluna = 7;
+        return coluna = 7;
     }
+}
+
+int verificar_coluna_cheia(int numColuna, char nomeMatriz[6][7]){
 
     //Verifica se a coluna já está totalmente preenchida
     //(coluna - 1) poque a coluna vai de  0 a 6 -> 0 1 2 3 4 5 6 
-    if(nomeMatriz[0][coluna-1] != '*'){
-        while(nomeMatriz[0][coluna-1] != '*'){
-            printf("Coluna preenchida!! Selecione outra coluna: ");
-            scanf("%d", &coluna);
-            getchar();
+    int aux = numColuna;
+    char charAux[50];
+
+    if(nomeMatriz[0][aux-1] != '*'){
+        while(nomeMatriz[0][aux-1] != '*'){
+            printf("Coluna preenchida!\nSelecione outra coluna: ");
+            fgets(charAux, 50, stdin);
+            charAux[strcspn(charAux, "\n")] = '\0';
+            aux = verificar_coluna_existencia(charAux);
         }
     }
-     
+
+    return aux;
+}
+
+void alocarJogada(int coluna, int simbolo, char nomeMatriz[6][7]){
+
     //Analisa qual posição está livre para alocar a jogada do jogador
     // A linha vai de 0 a 5 -> 0 1 2 3 4 5 -> começa de baixo para cima
     int linha = 5; 
@@ -176,6 +175,26 @@ void rodada(char jogador[50], char simbolo, char nomeMatriz[6][7]){
             linha--;
         }
     }
+}
+
+//Tipos de rodadas
+
+void rodada_humano(char jogador[50], char simbolo, char nomeMatriz[6][7]){
+    char charColuna[50];
+    
+    if(simbolo == 'X'){
+        printf("Rodada de %s (\033[0;33m%c\x1b[0m)\n", jogador, simbolo);
+    }
+    else{
+        printf("Rodada de %s (\033[0;31m%c\x1b[0m)\n", jogador, simbolo);
+    }
+    printf("Escolha uma coluna(1 a 7): ");
+    fgets(charColuna, 50, stdin);
+    charColuna[strcspn(charColuna, "\n")] = '\0';
+
+    int coluna = verificar_coluna_existencia(charColuna);
+    int auxColuna = verificar_coluna_cheia(coluna, nomeMatriz);
+    alocarJogada(auxColuna, simbolo, nomeMatriz);
 
     system("cls");
     printf("\n  -------- Ligue 4 --------\n");
