@@ -302,7 +302,7 @@ void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6]
 int verificar_coluna(char simbolo, char nomeMatriz[6][7]){
     
     for(int j = 0; j < 7; j++){
-        for(int i = 0; i < 4; i++){
+        for(int i = 0; i < 3; i++){
             if(nomeMatriz[i][j] == simbolo && nomeMatriz[i][j] == nomeMatriz[i+1][j] && nomeMatriz[i+1][j] == nomeMatriz[i+2][j] && nomeMatriz[i+2][j] == nomeMatriz[i+3][j]){
                 return 1;
             }
