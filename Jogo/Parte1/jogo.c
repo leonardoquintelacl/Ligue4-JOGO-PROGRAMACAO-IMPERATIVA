@@ -55,7 +55,7 @@ int main(){
 
             system("cls");
 
-            printf("\n --- Iniciando Partida --- \n\n"); 
+            printf("\n  --- Iniciando Partida --- \n\n"); 
             printMatriz(ligue4);
 
             for(int i = 1; i < 43; i++){
@@ -98,7 +98,7 @@ int main(){
             
             system("cls");
 
-            printf("\n --- Iniciando Partida --- \n\n"); 
+            printf("\n  --- Iniciando Partida --- \n\n"); 
             printMatriz(ligue4);
 
             for(int i = 1; i < 43; i++){
@@ -144,7 +144,7 @@ int main(){
             int comp2 = modo_nivel_comp();
             system("cls");
 
-            printf("\n --- Iniciando Partida --- \n\n"); 
+            printf("\n  --- Iniciando Partida --- \n\n"); 
             printMatriz(ligue4);
 
             printf("Teste modo 3");
