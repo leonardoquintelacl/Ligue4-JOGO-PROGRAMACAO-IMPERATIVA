@@ -127,6 +127,7 @@ int main(){
         }
 
         else if(selection == 3){
+
             char playerComp1[50];
             char playerComp2[50];
 
@@ -135,10 +136,16 @@ int main(){
             printf("\nDigite um nome para o COMPUTADOR 1: ");
             fgets(playerComp1, 50, stdin);
             playerComp1[strcspn(playerComp1, "\n")] = '\0';
-
+            int comp1 = modo_nivel_comp();
+            printf("\n");
             printf("Digite um nome para o COMPUTADOR 2: ");
             fgets(playerComp2, 50, stdin);
             playerComp2[strcspn(playerComp2, "\n")] = '\0';
+            int comp2 = modo_nivel_comp();
+            system("cls");
+
+            printf("\n --- Iniciando Partida --- \n\n"); 
+            printMatriz(ligue4);
 
             printf("Teste modo 3");
             return 0;

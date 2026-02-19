@@ -55,7 +55,7 @@ int modo_de_jogo(){
     printf("-> HUMANO VS HUMANO = 1\n");
     printf("-> HUMANO VS COMPUTADOR = 2\n");
     printf("-> COMPUTADOR VS COMPUTADOR = 3\n");
-    printf("\nDigite aqui (1 ou 2 ou 3): ");
+    printf("\nDigite aqui (1-3): ");
     fgets(aux, 50, stdin);
     aux[strcspn(aux, "\n")] = '\0';
 
@@ -85,7 +85,7 @@ int modo_nivel_comp(){
     printf("-> Facil = 1\n");
     printf("-> Medio = 2\n");
     printf("-> Dificil = 3\n");
-    printf("\nDigite aqui (1 ou 2 ou 3): ");
+    printf("\nDigite aqui (1-3): ");
     fgets(aux, 50, stdin);
     aux[strcspn(aux, "\n")] = '\0';
 
@@ -121,37 +121,36 @@ int verificar_coluna_existencia(char charColuna[50]){
     int coluna = 0;
 
     if(strcmp(charColuna, "1") == 0){
-        return coluna = 1;
+        return coluna = 0;
     }
     else if(strcmp(charColuna, "2") == 0){
-        return coluna = 2;
+        return coluna = 1;
     }
     else if(strcmp(charColuna, "3") == 0){
-        return coluna = 3;
+        return coluna = 2;
     }
     else if(strcmp(charColuna, "4") == 0){
-        return coluna = 4;
+        return coluna = 3;
     }
     else if(strcmp(charColuna, "5") == 0){
-        return coluna = 5;
+        return coluna = 4;
     }
     else if(strcmp(charColuna, "6") == 0){
-        return coluna = 6;
+        return coluna = 5;
     }
     else if(strcmp(charColuna, "7") == 0){
-        return coluna = 7;
+        return coluna = 6;
     }
 }
 
 int verificar_coluna_cheia(int numColuna, char nomeMatriz[6][7]){
 
     //Verifica se a coluna já está totalmente preenchida
-    //(coluna - 1) poque a coluna vai de  0 a 6 -> 0 1 2 3 4 5 6 
     int aux = numColuna;
     char charAux[50];
 
-    if(nomeMatriz[0][aux-1] != '*'){
-        while(nomeMatriz[0][aux-1] != '*'){
+    if(nomeMatriz[0][aux] != '*'){
+        while(nomeMatriz[0][aux] != '*'){
             printf("Coluna preenchida!\nSelecione outra coluna: ");
             fgets(charAux, 50, stdin);
             charAux[strcspn(charAux, "\n")] = '\0';
@@ -168,8 +167,8 @@ void alocarJogada(int coluna, int simbolo, char nomeMatriz[6][7]){
     // A linha vai de 0 a 5 -> 0 1 2 3 4 5 -> começa de baixo para cima
     int linha = 5; 
     while(linha >= 0){
-        if(nomeMatriz[linha][coluna-1] == '*'){
-            nomeMatriz[linha][coluna-1] = simbolo;
+        if(nomeMatriz[linha][coluna] == '*'){
+            nomeMatriz[linha][coluna] = simbolo;
             break;
         }
         else{
@@ -178,69 +177,6 @@ void alocarJogada(int coluna, int simbolo, char nomeMatriz[6][7]){
     }
 }
 
-//Funções Nível do Computador
-
-int comp_nivel_facil(char nomeMatriz[6][7]){
-    int numComp;
-    srand(time(NULL));
-    numComp = 1 + rand() % 6;
-
-    if(nomeMatriz[0][numComp] != '*'){
-        while(nomeMatriz[0][numComp] != '*'){
-            srand(time(NULL));
-            numComp = 1 + rand() % 6;
-        }
-    }
-
-    return numComp;
-}
-
-int comp_nivel_medio(int tabuleiro[6][7], int pecaPlayer) {
-    for (int col = 0; col < 7; col++) {
-        if (coluna_valida(tabuleiro, col)) {
-            simular_jogada(tabuleiro, col, pecaPlayer); 
-            
-            if (verificar_vitoria(tabuleiro, pecaPlayer)) {
-                limpar_simulacao(tabuleiro, col);
-                return col; 
-            }
-            limpar_simulacao(tabuleiro, col); 
-        }
-    }
-
-    int col_aleatoria;
-    do {
-        col_aleatoria = rand() % 7; // Sorteia de 0 a 6
-    } while (!coluna_valida(tabuleiro, col_aleatoria)); // Repete se a coluna estiver cheia
-
-    return col_aleatoria;
-}
-
-//Funções Auxiliares para Médio/Difícil
-
-int coluna_valida(int tabuleiro[6][7], int col) {
-    return tabuleiro[0][col] == 0; 
-}
-
-// Testa a posiçaõ da peça de baixo para cima
-void simular_jogada(int tabuleiro[6][7], int col, int peca) {
-    for (int i = 5; i >= 0; i--) {
-        if (tabuleiro[i][col] == 0) {
-            tabuleiro[i][col] = peca;
-            break;
-        }
-    }
-}
-
-// "Apaga" a peça que acabou de ser colocada na simulação
-void limpar_simulacao(int tabuleiro[6][7], int col) {
-    for (int i = 0; i < 6; i++) {
-        if (tabuleiro[i][col] != 0) {
-            tabuleiro[i][col] = 0;
-            break;
-        }
-    }
-}
  
 //Funções Modos de Jogo
 void rodada_humano(char jogador[50], char simbolo, char nomeMatriz[6][7]){
@@ -266,36 +202,6 @@ void rodada_humano(char jogador[50], char simbolo, char nomeMatriz[6][7]){
     printMatriz(nomeMatriz);
 }
 
-void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6][7], int nivel){
-    char charColuna[50];
-    int coluna = 0;
-
-    if(simbolo == 'X'){
-        printf("Sua rodada (\033[0;33m%c\x1b[0m)\n", simbolo);
-
-        printf("Escolha uma coluna(1 a 7): ");
-        fgets(charColuna, 50, stdin);
-        charColuna[strcspn(charColuna, "\n")] = '\0';
-        coluna = verificar_coluna_existencia(charColuna);
-    }
-    else{
-        if(nivel == 1){
-            coluna = comp_nivel_facil(nomeMatriz);
-        }
-    }
-
-    int auxColuna = verificar_coluna_cheia(coluna, nomeMatriz);
-    alocarJogada(auxColuna, simbolo, nomeMatriz);
-
-    system("cls");
-    printf("\n  -------- Ligue 4 --------\n");
-    printf("\n");
-    printMatriz(nomeMatriz);
-
-    if(simbolo != 'X'){
-        printf("%s selecionou a coluna: %d\n", jogador, coluna);
-    }
-}
 
 // Funções para vitória
 
@@ -354,4 +260,98 @@ int verificar_vitoria(char simbolo, char nomeMatriz[6][7]){
     }
 
     return 0;
+}
+
+
+//Funções Nível do Computador
+
+int comp_nivel_facil(char nomeMatriz[6][7]){
+    srand(time(NULL));
+    int numComp;
+    numComp = rand() % 7; //Imprime 7 números 0 1 2 3 4 5 6
+
+    if(nomeMatriz[0][numComp] != '*'){
+        while(nomeMatriz[0][numComp] != '*'){
+            numComp = rand() % 7;
+        }
+    }
+
+    return numComp;
+}
+
+//Funções Auxiliares para Médio/Difícil
+
+int coluna_valida(char tabuleiro[6][7], int coluna) {
+    return tabuleiro[0][coluna] == '*'; 
+}
+
+// Testa a posiçaõ da peça de baixo para cima
+void simular_jogada(char tabuleiro[6][7], int coluna, char peca) {
+    for (int i = 5; i >= 0; i--) {
+        if (tabuleiro[i][coluna] == '*') {
+            tabuleiro[i][coluna] = peca;
+            break;
+        }
+    }
+}
+
+// "Apaga" a peça que acabou de ser colocada na simulação
+void limpar_simulacao(char tabuleiro[6][7], int coluna) {
+    for (int i = 0; i < 6; i++) {
+        if (tabuleiro[i][coluna] != '*') {
+            tabuleiro[i][coluna] = '*';
+            break;
+        }
+    }
+}
+
+int comp_nivel_medio(char tabuleiro[6][7], char pecaPlayer) {
+    for (int coluna = 0; coluna < 7; coluna++) {
+        if (coluna_valida(tabuleiro, coluna)) {
+            simular_jogada(tabuleiro, coluna, pecaPlayer); 
+            
+            if (verificar_vitoria(pecaPlayer, tabuleiro)) {
+                limpar_simulacao(tabuleiro, coluna);
+                return coluna; 
+            }
+            limpar_simulacao(tabuleiro, coluna); 
+        }
+    }
+
+    int coluna_aleatoria;
+    do {
+        coluna_aleatoria = rand() % 7; // Sorteia de 0 a 6
+    } while (!coluna_valida(tabuleiro, coluna_aleatoria)); // Repete se a coluna estiver cheia
+
+    return coluna_aleatoria;
+}
+
+void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6][7], int nivel){
+    char charColuna[50];
+    int coluna = 0;
+
+    if(simbolo == 'X'){
+        printf("Sua rodada (\033[0;33m%c\x1b[0m)\n", simbolo);
+
+        printf("Escolha uma coluna(1 a 7): ");
+        fgets(charColuna, 50, stdin);
+        charColuna[strcspn(charColuna, "\n")] = '\0';
+        coluna = verificar_coluna_existencia(charColuna);
+        coluna = verificar_coluna_cheia(coluna, nomeMatriz);
+    }
+    else{
+        if(nivel == 1){
+            coluna = comp_nivel_facil(nomeMatriz);
+        }
+        if(nivel == 2){
+            coluna = comp_nivel_medio(nomeMatriz, 'X');
+        }
+    }
+
+    alocarJogada(coluna, simbolo, nomeMatriz);
+
+    system("cls");
+    printf("\n  -------- Ligue 4 --------\n");
+    printf("\n");
+    printMatriz(nomeMatriz);
 }
