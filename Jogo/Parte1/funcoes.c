@@ -326,6 +326,44 @@ int comp_nivel_medio(char tabuleiro[6][7], char pecaPlayer) {
     return coluna_aleatoria;
 }
 
+int comp_nivel_alto(int tabuleiro[6][7], int pecaIA, int pecaPlayer) {
+    for (int col = 0; col < 7; col++) {
+        if (coluna_valida(tabuleiro, col)) {
+            simular_jogada(tabuleiro, col, pecaIA); 
+            
+            if (verificar_vitoria(tabuleiro, pecaIA)) {
+                limpar_simulacao(tabuleiro, col);
+                return col; 
+            }
+            limpar_simulacao(tabuleiro, col);
+        }
+    }
+
+    for (int col = 0; col < 7; col++) {
+        if (coluna_valida(tabuleiro, col)) {
+            simular_jogada(tabuleiro, col, pecaPlayer); 
+            
+            if (verificar_vitoria(tabuleiro, pecaPlayer)) {
+                limpar_simulacao(tabuleiro, col);
+                return col; 
+            }
+            limpar_simulacao(tabuleiro, col);
+        }
+    }
+
+    int ordem_preferencia[7] = {3, 2, 4, 1, 5, 0, 6}; 
+    
+    for (int i = 0; i < 7; i++) {
+        int col_estrategica = ordem_preferencia[i];
+        
+        if (coluna_valida(tabuleiro, col_estrategica)) {
+            return col_estrategica;
+        }
+    }
+    
+    return 0; 
+}
+
 void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6][7], int nivel){
     char charColuna[50];
     int coluna = 0;
