@@ -33,17 +33,15 @@ void printMatriz(char nomeMatriz[6][7]){
 }
 
 void printVitoria(char jogador[50]){
-    printf("-----------------------------------------------------");
-    printf("\n                  FIM DE JOGO!                     \n");
-    printf("   O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!   \n", jogador);
-    printf("-----------------------------------------------------");
+    
+    printf("FIM DE JOGO!!!\n");
+    printf("O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!\n", jogador);
+   
 }
 
 void printEmpate(){
-    printf("---------------------------------------------------");
-    printf("\n                  FIM DE JOGO!                 \n");
-    printf("          AMBOS OS JOGADORES EMPATARAM         \n");
-    printf("---------------------------------------------------");
+    printf("FIM DE JOGO!!!");
+    printf("AMBOS OS JOGADORES EMPATARAM\n!!");
 }
 
 // Escolher modos
@@ -326,42 +324,37 @@ int comp_nivel_medio(char tabuleiro[6][7], char pecaPlayer) {
     return coluna_aleatoria;
 }
 
-int comp_nivel_alto(int tabuleiro[6][7], int pecaIA, int pecaPlayer) {
-    for (int col = 0; col < 7; col++) {
-        if (coluna_valida(tabuleiro, col)) {
-            simular_jogada(tabuleiro, col, pecaIA); 
-            
-            if (verificar_vitoria(tabuleiro, pecaIA)) {
-                limpar_simulacao(tabuleiro, col);
-                return col; 
-            }
-            limpar_simulacao(tabuleiro, col);
-        }
-    }
-
-    for (int col = 0; col < 7; col++) {
-        if (coluna_valida(tabuleiro, col)) {
-            simular_jogada(tabuleiro, col, pecaPlayer); 
-            
-            if (verificar_vitoria(tabuleiro, pecaPlayer)) {
-                limpar_simulacao(tabuleiro, col);
-                return col; 
-            }
-            limpar_simulacao(tabuleiro, col);
-        }
-    }
-
-    int ordem_preferencia[7] = {3, 2, 4, 1, 5, 0, 6}; 
-    
-    for (int i = 0; i < 7; i++) {
-        int col_estrategica = ordem_preferencia[i];
+int comp_nivel_alto(char tabuleiro[6][7], char pecaComp, char pecaPlayer) {
+    for (int coluna = 0; coluna < 7; coluna++) {
+        if (coluna_valida(tabuleiro, coluna)) {
+            simular_jogada(tabuleiro, coluna, pecaComp); 
+           if (verificar_vitoria(pecaComp, tabuleiro)) {
+                limpar_simulacao(tabuleiro, coluna);
+                return coluna; 
+            }     
         
-        if (coluna_valida(tabuleiro, col_estrategica)) {
-            return col_estrategica;
+            limpar_simulacao(tabuleiro, coluna);
         }
     }
-    
-    return 0; 
+
+    for (int coluna = 0; coluna < 7; coluna++) {
+        if (coluna_valida(tabuleiro, coluna)) {
+            simular_jogada(tabuleiro, coluna, pecaPlayer); 
+            
+            if (verificar_vitoria(pecaPlayer, tabuleiro)) {
+                limpar_simulacao(tabuleiro, coluna);
+                return coluna; 
+            }
+            limpar_simulacao(tabuleiro, coluna);
+        }
+    }
+
+    int coluna_aleatoria;
+    do {
+        coluna_aleatoria = rand() % 7; // Sorteia de 0 a 6
+    } while (!coluna_valida(tabuleiro, coluna_aleatoria)); // Repete se a coluna estiver cheia
+
+    return coluna_aleatoria;
 }
 
 void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6][7], int nivel){
@@ -383,6 +376,9 @@ void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6]
         }
         if(nivel == 2){
             coluna = comp_nivel_medio(nomeMatriz, 'X');
+        }
+        if(nivel == 3){
+            coluna = comp_nivel_alto(nomeMatriz, 'O', 'X');
         }
     }
 

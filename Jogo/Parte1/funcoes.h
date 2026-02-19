@@ -17,6 +17,7 @@ int coluna_valida(char tabuleiro[6][7], int coluna);
 void simular_jogada(char tabuleiro[6][7], int coluna, char peca);
 void limpar_simulacao(char tabuleiro[6][7], int coluna);
 int comp_nivel_medio(char tabuleiro[6][7], char pecaPlayer);
+int comp_nivel_alto(char tabuleiro[6][7], char pecaIA, char pecaPlayer);
 
 void rodada_humano(char jogador[50], char simbolo, char nomeMatriz[6][7]);
 void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6][7], int nivel);
