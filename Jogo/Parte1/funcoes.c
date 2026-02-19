@@ -349,12 +349,18 @@ int comp_nivel_alto(char tabuleiro[6][7], char pecaComp, char pecaPlayer) {
         }
     }
 
-    int coluna_aleatoria;
-    do {
-        coluna_aleatoria = rand() % 7; // Sorteia de 0 a 6
-    } while (!coluna_valida(tabuleiro, coluna_aleatoria)); // Repete se a coluna estiver cheia
+    int ordem_preferencia[7] = {3, 2, 4, 1, 5, 0, 6};
 
-    return coluna_aleatoria;
+   
+
+    for (int i = 0; i < 7; i++) {
+        int col_estrategica = ordem_preferencia[i];
+        if (coluna_valida(tabuleiro, col_estrategica)) {
+            return col_estrategica;
+        }
+    }
+
+    return 0;
 }
 
 void rodada_humano_computador(char jogador[50], char simbolo, char nomeMatriz[6][7], int nivel){
