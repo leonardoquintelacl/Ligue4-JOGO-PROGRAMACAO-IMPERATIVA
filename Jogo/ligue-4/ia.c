@@ -67,30 +67,31 @@ int comp_nivel_medio(char tabuleiro[6][7], char pecaPlayer) {
     return coluna_aleatoria;
 }
 
-int comp_nivel_alto(int tabuleiro[6][7], int pecaIA, int pecaPlayer) {
+int comp_nivel_alto(char tabuleiro[6][7], char pecaIA, char pecaPlayer) {
     
     
-    for (int col = 0; col < 7; col++) {
-        if (coluna_valida(tabuleiro, col)) {
-            simular_jogada(tabuleiro, col, pecaIA);
-            if (verificar_vitoria(tabuleiro, pecaIA)) {
-                limpar_simulacao(tabuleiro, col);
-                return col; 
+    for (int coluna = 0; coluna < 7; coluna++) {
+        if (coluna_valida(tabuleiro, coluna)) {
+            simular_jogada(tabuleiro, coluna, pecaIA);
+            if (verificar_vitoria(pecaIA, tabuleiro)) {
+                limpar_simulacao(tabuleiro, coluna);
+                return coluna; 
             }
-            limpar_simulacao(tabuleiro, col);
+            limpar_simulacao(tabuleiro, coluna);
         }
     }
 
-    for (int col = 0; col < 7; col++) {
-        if (coluna_valida(tabuleiro, col)) {
-            simular_jogada(tabuleiro, col, pecaPlayer);
-            if (verificar_vitoria(tabuleiro, pecaPlayer)) {
-                limpar_simulacao(tabuleiro, col);
-                return col; 
+    for (int coluna = 0; coluna < 7; coluna++) {
+        if (coluna_valida(tabuleiro, coluna)) {
+            simular_jogada(tabuleiro, coluna, pecaPlayer);
+            if (verificar_vitoria(pecaPlayer, tabuleiro)) {
+                limpar_simulacao(tabuleiro, coluna);
+                return coluna; 
             }
-            limpar_simulacao(tabuleiro, col);
+            limpar_simulacao(tabuleiro, coluna);
         }
     }
+
     //ESTRATÉGIA (Embaralhamento de Preferência)
     // Dividimos as colunas por grupos de importância
     int grupoCentro[] = {2, 3, 4}; 
@@ -104,15 +105,23 @@ int comp_nivel_alto(int tabuleiro[6][7], int pecaIA, int pecaPlayer) {
         grupoCentro[r] = temp;
     }
     for (int i = 0; i < 3; i++) {
-        if (coluna_valida(tabuleiro, grupoCentro[i])) return grupoCentro[i];
+        if (coluna_valida(tabuleiro, grupoCentro[i])){
+            return grupoCentro[i];
+        } 
     }
 
     int rAla = rand() % 2;
-    if (coluna_valida(tabuleiro, grupoAlas[rAla])) return grupoAlas[rAla];
-    if (coluna_valida(tabuleiro, grupoAlas[1 - rAla])) return grupoAlas[1 - rAla];
+    if (coluna_valida(tabuleiro, grupoAlas[rAla])){
+        return grupoAlas[rAla];
+    } 
+    if (coluna_valida(tabuleiro, grupoAlas[1 - rAla])){
+        return grupoAlas[1 - rAla];
+    } 
 
     int rBorda = rand() % 2;
-    if (coluna_valida(tabuleiro, grupoBordas[rBorda])) return grupoBordas[rBorda];
+    if (coluna_valida(tabuleiro, grupoBordas[rBorda])){
+        return grupoBordas[rBorda];
+    } 
     
     return grupoBordas[1 - rBorda]; 
 }
