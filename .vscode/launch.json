@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/laris/OneDrive/Documentos/GitHub/Ligue4-JOGO-PROGRAMACAO-IMPERATIVA/Jogo/Parte1",
-      "program": "c:/Users/laris/OneDrive/Documentos/GitHub/Ligue4-JOGO-PROGRAMACAO-IMPERATIVA/Jogo/Parte1/build/Debug/outDebug",
+      "cwd": "c:/Users/laris/OneDrive/Documentos/GitHub/Ligue4-JOGO-PROGRAMACAO-IMPERATIVA/Jogo/ligue-4",
+      "program": "c:/Users/laris/OneDrive/Documentos/GitHub/Ligue4-JOGO-PROGRAMACAO-IMPERATIVA/Jogo/ligue-4/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [

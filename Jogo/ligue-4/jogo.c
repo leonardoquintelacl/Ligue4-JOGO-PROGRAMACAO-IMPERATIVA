@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
-#include "funcoes.h"
+#include "include/funcoes.h"
 
 int main(){
     char buttonPower[50];
@@ -15,7 +15,7 @@ int main(){
     buttonPower[strcspn(buttonPower, "\n")] = '\0';
 
     while((strcmp(buttonPower, "0") != 0) && (strcmp(buttonPower, "1") != 0)){
-        printf("COMANMDO DESCONHECIDO!!\nDigite novamente: ");
+        printf("COMANDO DESCONHECIDO!!\nDigite novamente: ");
         fgets(buttonPower, 50, stdin);
         buttonPower[strcspn(buttonPower, "\n")] = '\0';
     }
@@ -29,13 +29,13 @@ int main(){
         system("cls");
 
         char playerOne[50];
-        char ligue4[6][7] = {{'*', '*', '*', '*', '*', '*', '*'},
-                             {'*', '*', '*', '*', '*', '*', '*'},
-                             {'*', '*', '*', '*', '*', '*', '*'},
-                             {'*', '*', '*', '*', '*', '*', '*'},
-                             {'*', '*', '*', '*', '*', '*', '*'},
-                             {'*', '*', '*', '*', '*', '*', '*'}};
 
+        char ligue4[6][7];
+        for(int i = 0; i < 6; i++){
+            for(int j = 0; j < 7; j++){
+                ligue4[i][j] = '*';
+            }
+        }
         int selection = modo_de_jogo();
 
         system("cls");
