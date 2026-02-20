@@ -20,7 +20,7 @@ Projeto desenvolvido pelos discentes de Sistemas de Informação da Universidade
 * **Computador vs. Computador**: Simulação automática com pausa para visualização.
 
 ### 🧠 Níveis de IA
-1. **Baixa**: Jogadas aleatórias[cite: 34].
+1. **Baixa**: Jogadas aleatórias.
 2. **Média**: Bloqueia vitórias imediatas do oponente.
 3. **Alta**: Joga de forma estratégica e ofensiva.
 
