@@ -136,18 +136,68 @@ int main(){
             printf("\nDigite um nome para o COMPUTADOR 1: ");
             fgets(playerComp1, 50, stdin);
             playerComp1[strcspn(playerComp1, "\n")] = '\0';
-            int comp1 = modo_nivel_comp();
+            int nivelComp1 = modo_nivel_comp();
+
             printf("\n");
             printf("Digite um nome para o COMPUTADOR 2: ");
             fgets(playerComp2, 50, stdin);
             playerComp2[strcspn(playerComp2, "\n")] = '\0';
-            int comp2 = modo_nivel_comp();
-            system("cls");
+            int nivelComp2 = modo_nivel_comp();
 
+            system("cls");
             printf("\n  --- Iniciando Partida --- \n\n"); 
             printMatriz(ligue4);
+            printf(">> Pressione ENTER para ver as jogadas...");
 
-            printf("Teste modo 3");
+            while (getchar() != '\n' && getchar() != EOF);
+
+            // larissa
+            for (int i = 1; i < 43; i++){
+                char jogador[50];
+                char simbolo;
+                int nivelAtual;
+                char simboloOposto;
+                
+                if(i % 2 != 0){ 
+                    strcpy(jogador, playerComp1);
+                    simbolo = 'X';
+                    simboloOposto = 'O';
+                    nivelAtual = nivelComp1;
+                }
+                else{
+                    strcpy(jogador, playerComp2);
+                    simbolo = 'O';
+                    simboloOposto = 'X';
+                    nivelAtual = nivelComp2;
+                }
+                int coluna;
+
+                if(nivelAtual == 1){
+                    coluna = comp_nivel_facil(ligue4);
+                }else if(nivelAtual == 2){
+                    coluna = comp_nivel_medio(ligue4, simboloOposto);
+                }
+                else if(nivelAtual == 3){
+                    coluna = comp_nivel_alto(ligue4, simbolo, simboloOposto);
+                }
+
+                alocarJogada(coluna, simbolo, ligue4);
+
+                system("cls");
+                printf("\n  -------- Ligue 4 --------\n");
+                printf("\n-- Vez de %s jogando na coluna %d --\n\n", jogador, coluna + 1);
+                printMatriz(ligue4);
+
+                printf(">> Pressione ENTER para ver a proxima jogada...");
+                getchar(); 
+
+                if(verificar_vitoria(simbolo, ligue4) == 1){
+                    printVitoria(jogador);
+                    return 0;
+                }
+            }
+
+            printEmpate();
             return 0;
         }
     }

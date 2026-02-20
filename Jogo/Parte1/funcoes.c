@@ -35,7 +35,7 @@ void printMatriz(char nomeMatriz[6][7]){
 void printVitoria(char jogador[50]){
     
     printf("FIM DE JOGO!!!\n");
-    printf("O JOGADOR %s Eh O GRANDE CAMPEAO DO LIGUE4!!!\n", jogador);
+    printf("O JOGADOR %s EH O GRANDE CAMPEAO DO LIGUE4!!!\n", jogador);
    
 }
 
